@@ -51,6 +51,7 @@ class UserFormView(View):
 					print('***Error Debug*** User is none')
 			else:
 				print('***Error Debug*** Form is not valid')
+				print form.errors
 
 		elif request.POST['formaction'] == 'login':
 			username = request.POST['username']
