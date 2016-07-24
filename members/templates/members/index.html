@@ -85,8 +85,8 @@
 					 <form class="ui form" method="post">
 					 	{% csrf_token %}
 						<div class="field">
-							<label>E-Mail</label>
-							<input type="text" name="e-mail" placeholder="E-Mail">
+							<label>Username</label>
+							<input type="text" name="username" placeholder="Username">
 						</div>
 						<div class="field">
 							<label>Password</label>
@@ -98,6 +98,7 @@
 								<label>Keep me logged in.</label>
 							</div>
 						</div>
+						<input type="hidden" name="formaction" value="login">
 						<button class="ui button" type="submit">Log In</button>
 					</form>
 					<p>Need Help ? <a href="#">I forgot my password.</a></p>
@@ -125,11 +126,11 @@
 					 	{% csrf_token %}
 						<div class="field">
 							<label>Full Name</label>
-							<input type="text" name="full-name" placeholder="Full Name">
+							<input type="text" name="username" placeholder="Full Name">
 						</div>
 						<div class="field">
 							<label>E-Mail</label>
-							<input type="text" name="e-mail" placeholder="E-Mail">
+							<input type="text" name="email" placeholder="E-Mail">
 						</div>
 						<div class="field">
 							<label>Password</label>
@@ -137,22 +138,23 @@
 						</div>
 						<div class="field">
 							<div class="ui radio checkbox">
-								<input type="radio" name="user-type" tabindex="0" class="hidden">
+								<input type="radio" name="usertype" value="teacher" tabindex="0" class="hidden">
 								<label>Teacher</label>
 							</div>
 						</div>
 						<div class="field">
 							<div class="ui radio checkbox">
-								<input type="radio" name="user-type" tabindex="0" class="hidden">
+								<input type="radio" name="usertype" value="student" tabindex="0" class="hidden">
 								<label>Student</label>
 							</div>
 						</div>
 						<div class="field">
 							<div class="ui radio checkbox">
-								<input type="radio" name="user-type" tabindex="0" class="hidden">
+								<input type="radio" name="usertype"  value="both" tabindex="0" class="hidden">
 								<label>Both</label>
 							</div>
 						</div>
+						<input type="hidden" name="formaction" value="signup">
 						<button class="ui button" type="submit">Sign Up</button>
 					</form>
 					<p>By signing up to create an account I accept Crashcourseyou's <a href="#">Terms of use and Privacy Policy.</a></p>

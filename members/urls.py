@@ -1,8 +1,11 @@
 from django.conf.urls import url
-from .views import UserForm
+from . import views
+from .views import UserFormView, UserDashboard
 
 app_name = 'members'
 
 urlpatterns = [
-    url(r'^$', UserForm.as_view() , name='index'),
+    url(r'^$', UserFormView.as_view() , name='index'),
+    url(r'^dashboard/', UserDashboard.as_view() , name='userdashboard'),
+    url(r'^logout/', views.UserLogout , name='userlogout'),
 ]
