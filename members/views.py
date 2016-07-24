@@ -45,6 +45,13 @@ class UserFormView(View):
 					if user.is_active:
 						login(request, user)
 						return redirect('members:userdashboard')
+					else:
+						print('***Error Debug*** User not active')
+				else:
+					print('***Error Debug*** User is none')
+			else:
+				print('***Error Debug*** Form is not valid')
+
 		elif request.POST['formaction'] == 'login':
 			username = request.POST['username']
 			password = request.POST['password']

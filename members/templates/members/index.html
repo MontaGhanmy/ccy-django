@@ -53,9 +53,9 @@
 		</div>
 		<!-- Login/Signup -->
 		<section class="signinup">
-			{% if user_message %}
+			{% if error_message %}
 			 <div class="ui message">
-			    <div class="header">user Message</div>
+			    <div class="header">{{ error_message }}</div>
 			  </div>
 			{% endif %}
 			<ul class="nav nav-tabs">
@@ -136,22 +136,24 @@
 							<label>Password</label>
 							<input type="password" name="password" placeholder="Password">
 						</div>
-						<div class="field">
-							<div class="ui radio checkbox">
-								<input type="radio" name="usertype" value="teacher" tabindex="0" class="hidden">
-								<label>Teacher</label>
+						<div class="inline fields">
+							<div class="field">
+								<div class="ui radio checkbox">
+									<input type="radio" name="usertype" value="teacher" tabindex="0" class="hidden">
+									<label>Teacher</label>
+								</div>
 							</div>
-						</div>
-						<div class="field">
-							<div class="ui radio checkbox">
-								<input type="radio" name="usertype" value="student" tabindex="0" class="hidden">
-								<label>Student</label>
+							<div class="field">
+								<div class="ui radio checkbox">
+									<input type="radio" name="usertype" value="student" tabindex="0" class="hidden">
+									<label>Student</label>
+								</div>
 							</div>
-						</div>
-						<div class="field">
-							<div class="ui radio checkbox">
-								<input type="radio" name="usertype"  value="both" tabindex="0" class="hidden">
-								<label>Both</label>
+							<div class="field">
+								<div class="ui radio checkbox">
+									<input type="radio" name="usertype"  value="both" tabindex="0" class="hidden">
+									<label>Both</label>
+								</div>
 							</div>
 						</div>
 						<input type="hidden" name="formaction" value="signup">
