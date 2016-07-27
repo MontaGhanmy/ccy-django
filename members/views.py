@@ -24,10 +24,12 @@ class UserFormss(TemplateView):
 class UserFormView(View):
 	form_class = UserForm
 	template_name = "members/index.html"
-	def get(self, request):
+	def get(self, request, actiontype):
+		if request.user.is_authenticated():
+			redirect('members:userdashboard')
 		form = self.form_class(None)
-		return render(request, self.template_name, context = {'action_type': request.GET['action_type'],'form':form,})
-	def post(self, request):
+		return render(request, self.template_name, context = {'action_type': actiontype,'form':form,})
+	def post(self, request, actiontype):
 		form = self.form_class(request.POST)
 		if request.POST['formaction'] == 'signup':
 			if form.is_valid():
@@ -35,9 +37,10 @@ class UserFormView(View):
 				username = form.cleaned_data['username']
 				password = form.cleaned_data['password']
 				email = form.cleaned_data['email']
+				usertype = form.cleaned_data['usertype']
 				user.set_password(password)
 				user.save()
-				user.userprofile.user_type = request.POST['usertype']
+				user.userprofile.user_type = usertype #request.POST['usertype']
 				user.userprofile.save()
 
 				user = authenticate(username=username, password=password)
@@ -51,7 +54,7 @@ class UserFormView(View):
 					print('***Error Debug*** User is none')
 			else:
 				print('***Error Debug*** Form is not valid')
-				print form.errors
+				print(form.errors)
 
 		elif request.POST['formaction'] == 'login':
 			username = request.POST['username']
@@ -61,7 +64,7 @@ class UserFormView(View):
 				if user.is_active:
 					login(request, user)
 					return redirect('members:userdashboard')
-		return render(request, self.template_name, context={'action_type': request.GET['action_type'], 'form': form,})
+		return render(request, self.template_name, context={'action_type': actiontype, 'form': form,'error_message':form.errors.as_text,})
 
 class UserDashboard(TemplateView):
 	template_name = "members/dashboard.html"

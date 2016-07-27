@@ -54,9 +54,13 @@
 		<!-- Login/Signup -->
 		<section class="signinup">
 			{% if error_message %}
-			 <div class="ui message">
-			    <div class="header">{{ error_message }}</div>
-			  </div>
+			 <!--<div class="ui message">
+			    <div class="header"></div>
+			  </div>-->
+			    <div class="ui error message">
+				    <div class="header">Error</div>
+				    <p>{{ error_message|escape }}</p>
+				  </div>
 			{% endif %}
 			<ul class="nav nav-tabs">
 				<li {% if action_type == 'login' %} class="active" {% endif %}><a data-toggle="tab" href="#login">Log In</a></li>
@@ -84,11 +88,11 @@
 					 <!-- Login Form -->
 					 <form class="ui form" method="post">
 					 	{% csrf_token %}
-						<div class="field">
+						<div class="required field">
 							<label>Username</label>
 							<input type="text" name="username" placeholder="Username">
 						</div>
-						<div class="field">
+						<div class="required field">
 							<label>Password</label>
 							<input type="password" name="password" placeholder="Password">
 						</div>
@@ -124,19 +128,19 @@
 					 <!-- Signup form -->
 					 <form class="ui form" method="post">
 					 	{% csrf_token %}
-						<div class="field">
-							<label>Full Name</label>
+						<div class="required field">
+							<label>Username</label>
 							<input type="text" name="username" placeholder="Full Name">
 						</div>
-						<div class="field">
+						<div class="required field">
 							<label>E-Mail</label>
 							<input type="text" name="email" placeholder="E-Mail">
 						</div>
-						<div class="field">
+						<div class="required field">
 							<label>Password</label>
 							<input type="password" name="password" placeholder="Password">
 						</div>
-						<div class="inline fields">
+						<div class="required inline fields">
 							<div class="field">
 								<div class="ui radio checkbox">
 									<input type="radio" name="usertype" value="teacher" tabindex="0" class="hidden">
