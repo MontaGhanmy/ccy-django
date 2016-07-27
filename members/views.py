@@ -25,8 +25,6 @@ class UserFormView(View):
 	form_class = UserForm
 	template_name = "members/index.html"
 	def get(self, request, actiontype):
-		if request.user.is_authenticated():
-			redirect('members:userdashboard')
 		form = self.form_class(None)
 		return render(request, self.template_name, context = {'action_type': actiontype,'form':form,})
 	def post(self, request, actiontype):
