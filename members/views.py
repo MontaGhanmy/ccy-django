@@ -38,7 +38,7 @@ class UserFormView(View):
 				usertype = form.cleaned_data['usertype']
 				user.set_password(password)
 				user.save()
-				user.userprofile.user_type = usertype #request.POST['usertype']
+				user.userprofile.user_type = usertype 
 				user.userprofile.save()
 
 				user = authenticate(username=username, password=password)
