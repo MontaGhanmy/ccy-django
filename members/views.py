@@ -82,6 +82,9 @@ class UserDashboard(TemplateView):
 		if request.POST['useremail']:
 			request.user.email = request.POST['useremail']
 			request.user.save()
+		if request.POST['userdesc']:
+			request.user.userprofile.user_desc = request.POST['userdesc']
+			request.user.save()
 		if request.POST['usertags']:
 			request.user.userprofile.user_tags = request.POST['usertags']
 			request.user.userprofile.save()	
