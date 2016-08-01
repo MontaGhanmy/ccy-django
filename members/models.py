@@ -8,6 +8,7 @@ class UserProfile(models.Model):
     user_successrate = models.TextField()
     user_desc = models.TextField(default="my description")
     user_tags = models.TextField(default="ccy, ")
+    image = models.FileField(null=True, blank=True)
 
 
 def create_user_profile(sender, instance, created, **kwargs):

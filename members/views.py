@@ -87,7 +87,10 @@ class UserDashboard(TemplateView):
 			request.user.save()
 		if request.POST['usertags']:
 			request.user.userprofile.user_tags = request.POST['usertags']
-			request.user.userprofile.save()	
+			request.user.userprofile.save()
+		if request.FILES['userimage']:
+			request.user.userprofile.image = request.FILES['userimage']
+			request.user.userprofile.save()
 		return redirect('members:userdashboard')
 
 def UserLogout(request):
