@@ -20,9 +20,10 @@
 					  <a href="index.html" class="section">Home</a>
 					  <i class="right chevron icon divider"></i>
 					  <a class="active section">Dashboard</a>
-					  <button class="ui button" onclick="window.location='{% url 'members:userlogout' %}';">Logout</button>
 					</div>
 				</div>
+				<div class="rightbar">
+				<button class="ui button" onclick="window.location='{% url 'members:userlogout' %}';">Logout</button>
 				<div class="languages ui floating dropdown labeled search icon button">
 				  <i class="world icon"></i>
 				  <span class="text">Select Language</span>
@@ -52,6 +53,7 @@
 				</div>
 			</div>
 		</div>
+		</div>
 		<section class="overview">
 			<div class="container-fluid">
 				<div class="row">
@@ -61,7 +63,14 @@
 								<img src="http://placehold.it/200x200">
 							</div>
 							<div class="content">
-								<a class="header">{{ request.user.username }}</a>
+								<a class="header">
+								{% if request.user.first_name and request.user.last_name %}
+									{{ request.user.first_name }} {{ request.user.last_name }}
+								{% else %}
+									{{ request.user.username }}
+								{% endif %}
+
+								</a>
 								<div class="meta">
 									<span>3 crash courses as a teacher / 1 as a student.</span>
 								</div>
@@ -69,7 +78,7 @@
 									<p></p>
 								</div>
 								<div class="extra">
-									15 users satisfied / 80% good feedback.
+									15 users satisfied / {{ request.user.userprofile.user_successrate }} good feedback.
 									<div class="ui star rating myrating" data-rating="4" data-max-rating="5"></div>
 								</div>
 							</div>
@@ -88,15 +97,11 @@
 					<div class="col-md-2">
 						<h3>Likes:</h3>
 						<div class="ui blue labels">
+							{% for tag in  usertags %}
 							<a class="ui label">
-								IT <i class="icon close"></i>
+								{{ tag }} <i class="icon close"></i>
 							</a>
-							<a class="ui label">
-								Math <i class="icon close"></i>
-							</a>
-							<a class="ui label">
-								Aquarium <i class="icon close"></i>
-							</a>
+							{% endfor %}
 						</div>
 					</div>
 				</div>
@@ -217,7 +222,34 @@
 					</div>
 				</div>
 				<div id="profile" class="tab-pane fade">
-
+					<div class="ui form">
+					<form action="" method="post">
+						{% csrf_token %}
+						<div class="field">
+							<label>Username :</label>
+							<input type="text" name="username" placeholder="{{ request.user.username }}">
+						</div>
+						<div class="fields">
+							<div class="field">
+								<label>First name :</label>
+								<input type="text" name="firstname" placeholder="{{ request.user.first_name }}">
+							</div>
+							<div class="field">
+								<label>Last name :</label>
+								<input type="text" name="lastname" placeholder="{{ request.user.last_name }}">
+							</div>
+						</div>
+						<div class="field">
+							<label>Describe yourself :</label>
+							<textarea></textarea>
+						</div>
+						<div class="field">
+							<label>Tags :</label>
+							<input type="text" name="usertags" value="{{ request.user.userprofile.user_tags }}">
+						</div>
+						<button class="ui button" type="submit">Update</button>
+					</form>
+					</div>
 				</div>
 				<div id="discussion" class="tab-pane fade">
 					<div class="ui comments">

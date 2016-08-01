@@ -13,7 +13,7 @@ ul {
 .mainheader .sitemap {
 	float: left;
 }
-.mainheader .languages {
+.mainheader .rightbar , .mainheader .rightbar .languages {
 	float: right;
 }
 /** Overview **/

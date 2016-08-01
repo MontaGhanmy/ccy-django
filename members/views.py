@@ -25,6 +25,8 @@ class UserFormView(View):
 	form_class = UserForm
 	template_name = "members/index.html"
 	def get(self, request, actiontype):
+		if  request.user.is_authenticated():
+			return redirect('members:userdashboard')
 		form = self.form_class(None)
 		return render(request, self.template_name, context = {'action_type': actiontype,'form':form,})
 	def post(self, request, actiontype):
@@ -53,7 +55,6 @@ class UserFormView(View):
 			else:
 				print('***Error Debug*** Form is not valid')
 				print(form.errors)
-
 		elif request.POST['formaction'] == 'login':
 			username = request.POST['username']
 			password = request.POST['password']
@@ -66,6 +67,22 @@ class UserFormView(View):
 
 class UserDashboard(TemplateView):
 	template_name = "members/dashboard.html"
+	def get(self, request):
+		return render(request, self.template_name, context={'usertags': request.user.userprofile.user_tags.split(',')})
+	def post(self, request):
+		if request.POST['username']:
+			request.user.username = request.POST['username']
+			request.user.save()
+		if request.POST['firstname']:
+			request.user.first_name = request.POST['firstname']
+			request.user.save()		
+		if request.POST['lastname']:
+			request.user.last_name = request.POST['lastname']
+			request.user.save()
+		if request.POST['usertags']:
+			request.user.userprofile.user_tags = request.POST['usertags']
+			request.user.userprofile.save()	
+		return redirect('members:userdashboard')
 
 def UserLogout(request):
     logout(request)
