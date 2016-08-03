@@ -35,7 +35,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mainhome',
-    'members'
+    'members',
+    'createcourse',
 ]
 
 MIDDLEWARE_CLASSES = [

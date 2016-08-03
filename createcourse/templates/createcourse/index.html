@@ -1,0 +1,153 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>CrashCourseYou</title>
+		<!-- Loading the font -->
+		<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+		<!-- Latest compiled and minified Bootstrap CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<!-- Sementic UI CDN -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.2/semantic.min.css" crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href="{% static 'createcourse/addcourse.css' %}">
+		<script   src="https://code.jquery.com/jquery-1.12.4.min.js" crossorigin="anonymous"></script>
+	</head>
+	<body>
+		<div class="header container-fluid">
+			<div class="row">
+				<div class="sitemap">
+					<div class="ui large breadcrumb">
+						<a class="section">Profile</a>
+						<i class="right chevron icon divider"></i>
+						<a class="active section">Teach</a>
+						<i class="right chevron icon divider"></i>
+						<a class="active section">Add crash courses</a>
+					</div>
+				</div>
+				<div class="languages ui floating dropdown labeled search icon button">
+				  <i class="world icon"></i>
+				  <span class="text">Select Language</span>
+				  <div class="menu">
+				    <div class="item">Arabic</div>
+				    <div class="item">Chinese</div>
+				    <div class="item">Danish</div>
+				    <div class="item">Dutch</div>
+				    <div class="item">English</div>
+				    <div class="item">French</div>
+				    <div class="item">German</div>
+				    <div class="item">Greek</div>
+				    <div class="item">Hungarian</div>
+				    <div class="item">Italian</div>
+				    <div class="item">Japanese</div>
+				    <div class="item">Korean</div>
+				    <div class="item">Lithuanian</div>
+				    <div class="item">Persian</div>
+				    <div class="item">Polish</div>
+				    <div class="item">Portuguese</div>
+				    <div class="item">Russian</div>
+				    <div class="item">Spanish</div>
+				    <div class="item">Swedish</div>
+				    <div class="item">Turkish</div>
+				    <div class="item">Vietnamese</div>
+				  </div>
+				</div>
+			</div>
+		</div>
+		<!--  -->
+		<section class="addcourse-wrapper">
+			<div class="container-fluid">
+			{% if message %}
+				<div class="row">
+					<div class="col-md-12">
+						<p class="msg">{{ message }}</p>
+					</div>
+					
+				</div>
+			{% endif %}
+				<div class="row">
+					<div class="col-md-12">
+						<p>Please fill in the basic information about your course. <button class="ui green circular icon button">
+  <i class="help icon"></i>
+</button></p>
+					<div class="row">
+						<div class="col-md-10">
+							<form action='' method='post'>
+								{% csrf_token %}
+							<div class="ui fluid labeled input">
+								<div class="ui label">
+									Course name: 
+								</div>
+								<input type="text" name="coursename" placeholder="mysite.com">
+							</div>
+						</div>
+						<div class="col-md-2">
+							<input type="submit" value="Add" class="ui fluid button">
+							 </form>
+						</div>
+					</div>
+					</div>
+				</div>
+				{% if courses %}
+					<div class="row course-list">
+						<div class="col-md-12">
+							<div class="ui middle aligned list">
+								{% for course in courses %}
+								<!-- begin item -->
+								<div class="item">
+									<div class="right floated content">
+										<div class="ui button">Delete</div>
+										<div class="ui button">Edit</div>
+									</div>
+									<div class="content">
+										- {{course.course_name}}
+									</div>
+								</div>
+								{% endfor %}
+								<!-- end item -->
+							</div>
+						</div>
+					</div>
+				{% else %}
+				<div class="row course-list">
+					<div class="col-md-12">
+						<p class="msg">You have no courses yet. Please click add to create a new course.</p>
+					</div>
+				</div>
+				{% endif %}
+				<div class="row course-details">
+					<div class="col-md-12">
+						<p>Inform extra details about you for the audience. <button class="ui green circular icon button">
+  						<i class="help icon"></i>
+						</button></p>
+					</div>
+					<div class="col-md-12">
+					<div class="ui fluid form">
+						<div class="item fluid">
+							<textarea {% if not message %} disabled {% else %} placeholder="Add your course details here and click next..." {% endif %}></textarea>
+							<div class="right floated content">
+								<div class="ui button">Next</div>
+							</div>
+						</div>				
+					</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="footer">
+			<p>All rights reserved <strong>@CrashCourseYou</strong> 2016-2017.</p>
+		</section>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.2/semantic.min.js" crossorigin="anonymous"></script>
+		<script type="text/javascript">
+			$('.ui.dropdown')
+			  .dropdown()
+			;
+			$('.ui.checkbox')
+			  .checkbox()
+			;
+			$('.ui.radio.checkbox')
+			  .checkbox()
+			;
+		</script>
+	</body>
+</html>
