@@ -9,7 +9,7 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 		<!-- Sementic UI CDN -->
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.2/semantic.min.css" crossorigin="anonymous">
-		<link rel="stylesheet" type="text/css" href="{% static 'createcourse/addcourse.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'createcourse/coursedetails.css' %}">
 		<script   src="https://code.jquery.com/jquery-1.12.4.min.js" crossorigin="anonymous"></script>
 	</head>
 	<body>
@@ -19,7 +19,9 @@
 					<div class="ui large breadcrumb">
 						<a class="section" onclick="window.location='{% url 'members:index' %}';">Dashboard</a>
 						<i class="right chevron icon divider"></i>
-						<a class="active section">Add crash courses</a>
+						<a class="section" onclick="window.location='{% url 'createcourse:index' %}';">Add crash courses</a>
+						<i class="right chevron icon divider"></i>
+						<a class="active section">Course Details</a>
 					</div>
 				</div>
 				<div class="languages ui floating dropdown labeled search icon button">
@@ -54,67 +56,47 @@
 		<!--  -->
 		<section class="addcourse-wrapper">
 			<div class="container-fluid">
-			{% if message %}
 				<div class="row">
 					<div class="col-md-12">
-						<p class="msg">{{ message }}</p>
-					</div>
-					
-				</div>
-			{% endif %}
-				<div class="row">
-					<div class="col-md-12">
-						<p>Please fill in the basic information about your course. <button class="ui green circular icon button">
-  <i class="help icon"></i>
-</button></p>
-					<div class="row">
-						<div class="col-md-10">
-							<form action='' method='post'>
-								{% csrf_token %}
-							<div class="ui fluid labeled input">
-								<div class="ui label">
-									Course name: 
+						<p>{{ message.course_name }}</p>
+						<form id="imageform" action="" method="post" enctype="multipart/form-data">
+							{% csrf_token %}
+							<div class="ui form">
+								<div class="field">
+									<label>What to expect: <button class="ui green circular icon button">
+									  <i class="help icon"></i>
+									</button></label>
+									<textarea name="cexpectdesc" rows="2">{% if message.course_expect_desc %}{{ message.course_expect_desc }}{% endif %}</textarea>
 								</div>
-								<input type="text" name="coursename" placeholder="mysite.com">
-							</div>
-						</div>
-						<div class="col-md-2">
-							<input type="submit" value="Add" class="ui fluid button">
-							 </form>
-						</div>
-					</div>
-					</div>
-				</div>
-				{% if courses %}
-					<div class="row course-list">
-						<div class="col-md-12">
-							<div class="ui middle aligned list">
-								{% for course in courses %}
-								<!-- begin item -->
-								<div class="item">
-									<div class="right floated content">
-										<div class="ui green button" onclick="window.location='{% url 'createcourse:index' %}{{ course.id }}';">Edit</div>
-										<div class="ui red button" onclick="window.location='{% url 'createcourse:index' %}delete/{{ course.id }}';">Delete</div>
-									</div>
-									<div class="content">
-										- {{course.course_name}} 
-										{% if course.course_draft %}
-											<a class="ui teal tag label">Draft</a>
-										{% endif %}
-									</div>
+								<div class="field">
+									<label>Requirements (optional): <button class="ui green circular icon button">
+									  <i class="help icon"></i>
+									</button></label>
+									<textarea name="creqdesc" rows="2">{% if message.course_req_desc %}{{ message.course_req_desc }}{% endif %}</textarea>
 								</div>
-								{% endfor %}
-								<!-- end item -->
-							</div>
-						</div>
-					</div>
-				{% else %}
-				<div class="row course-list">
-					<div class="col-md-12">
-						<p class="msg">You have no courses yet. Please click add to create a new course.</p>
+								<div class="field">
+									<label>Final Result (optional): <button class="ui green circular icon button">
+									  <i class="help icon"></i>
+									</button></label>
+									<textarea name="cresultdesc" rows="2">{% if message.course_result_desc  %}{{ message.course_result_desc }}{% endif %}</textarea>
+								</div>
+								<div class="field">
+									<label>Course Images : </label>
+									{% if images %}
+									<div class="ui tiny images">
+										{% for image in images %}
+											<img class="ui image" src="{{ image.image.url }}">
+										{% endfor %}
+									</div>
+									{% endif %}
+									<input type="file" name="courseimage" onchange="window.setTimeout(function() { document.getElementById('imageform').submit(); }, 200);">
+								</div>
+								<div class="field">
+									<button class="ui button" type="submit">Submit</button>
+								</div>
+						</form>
 					</div>
 				</div>
-				{% endif %}
 			</div>
 		</section>
 		<section class="footer">
@@ -122,6 +104,7 @@
 		</section>
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.2/semantic.min.js" crossorigin="anonymous"></script>
+		<script type="text/javascript" src="{% static 'createcourse/js/main.js' %}"></script>
 		<script type="text/javascript">
 			$('.ui.dropdown')
 			  .dropdown()

@@ -1,0 +1,47 @@
+html, body {
+	width: 100%;
+}
+body {
+	font-family: 'Roboto', sans-serif;
+}
+ul {
+	list-style: none;
+}
+.header {
+	padding: 50px;
+}
+.header .sitemap {
+	float: left;
+}
+.header .languages {
+	float: right;
+}
+/** Overview **/
+.addcourse-wrapper {
+	width: 80%;
+	margin: 20px auto;
+	padding: 15px;
+    border: 1px solid #ddd;
+}
+.course-list {
+	max-height: 200px;
+    overflow-y: scroll;
+    margin-top: 20px;
+    border: 1px solid #DDD;
+    padding: 10px;
+}
+.course-details {
+	margin-top: 20px;
+}
+.ui.form {
+	margin-top: 5px;
+}
+.right.floated {
+	float: right;
+	margin: 5px;
+}
+/** Footer **/
+.footer {
+	text-align: center;
+	padding: 15px;
+}
