@@ -24,24 +24,26 @@ class Index(View):
 		courses = Course.objects.filter(course_author=request.user.username)
 		return render(request, self.template_name, context={'message':'Course exists ! Please pick another name.','courses':courses})
 
-
+flag = {'Ture': True, 'False': False}
 class CourseDetails(View):
 	template_name = "createcourse/coursedetails.html"
 	def get(self, request, course_id):
 		course = Course.objects.get(id=course_id)
 		images = Images.objects.filter(parent_course=course_id)
-		return render(request, self.template_name, context={'message':course,'images':images} )
+		return render(request, self.template_name, context={'course':course,'images':images} )
 	def post(self, request, course_id):
 		if request.FILES.get('courseimage', False):
 			newimage = Images(parent_course=course_id, image=request.FILES.get('courseimage', False))
 			newimage.save()
 		course = Course.objects.get(id=course_id)
+		course.course_expect_desc = request.POST.get('cname','')
 		course.course_expect_desc = request.POST.get('cexpectdesc','')
 		course.course_req_desc = request.POST.get('creqdesc','')
 		course.course_result_desc = request.POST.get('cresultdesc','')
+		course.course_draft = flag[request.POST.get('cdraft', 'True')]
 		course.save()
 		images = Images.objects.filter(parent_course=course_id)
-		return render(request, self.template_name, context={'message':course,'images':images} )
+		return render(request, self.template_name, context={'course':course,'images':images} )
 
 def deletCourse(request, course_id):
 	try: 

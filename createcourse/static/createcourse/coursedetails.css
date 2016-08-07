@@ -40,6 +40,9 @@ ul {
 	float: right;
 	margin: 5px;
 }
+.ui.fluid.input {
+	margin-bottom: 10px !important;
+}
 /** Footer **/
 .footer {
 	text-align: center;

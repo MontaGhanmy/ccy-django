@@ -10,7 +10,9 @@
 		<!-- Sementic UI CDN -->
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.2/semantic.min.css" crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href="{% static 'createcourse/coursedetails.css' %}">
-		<script   src="https://code.jquery.com/jquery-1.12.4.min.js" crossorigin="anonymous"></script>
+		<script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
 	</head>
 	<body>
 		<div class="header container-fluid">
@@ -58,27 +60,29 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-md-12">
-						<p>{{ message.course_name }}</p>
 						<form id="imageform" action="" method="post" enctype="multipart/form-data">
 							{% csrf_token %}
 							<div class="ui form">
-								<div class="field">
-									<label>What to expect: <button class="ui green circular icon button">
-									  <i class="help icon"></i>
-									</button></label>
-									<textarea name="cexpectdesc" rows="2">{% if message.course_expect_desc %}{{ message.course_expect_desc }}{% endif %}</textarea>
+								<div class="ui fluid labeled input">
+									<div class="ui label">
+										Course name: 
+									</div>
+									<input type="text" name="cname" value="{{ course.course_name }}">
 								</div>
 								<div class="field">
-									<label>Requirements (optional): <button class="ui green circular icon button">
-									  <i class="help icon"></i>
+									<label>What to expect: 
 									</button></label>
-									<textarea name="creqdesc" rows="2">{% if message.course_req_desc %}{{ message.course_req_desc }}{% endif %}</textarea>
+									<textarea name="cexpectdesc" rows="2">{% if course.course_expect_desc %}{{ course.course_expect_desc }}{% endif %}</textarea>
 								</div>
 								<div class="field">
-									<label>Final Result (optional): <button class="ui green circular icon button">
-									  <i class="help icon"></i>
+									<label>Requirements (optional): 
 									</button></label>
-									<textarea name="cresultdesc" rows="2">{% if message.course_result_desc  %}{{ message.course_result_desc }}{% endif %}</textarea>
+									<textarea name="creqdesc" rows="2">{% if course.course_req_desc %}{{ course.course_req_desc }}{% endif %}</textarea>
+								</div>
+								<div class="field">
+									<label>Final Result (optional): 
+									</button></label>
+									<textarea name="cresultdesc" rows="2">{% if course.course_result_desc  %}{{ course.course_result_desc }}{% endif %}</textarea>
 								</div>
 								<div class="field">
 									<label>Course Images : </label>
@@ -89,10 +93,35 @@
 										{% endfor %}
 									</div>
 									{% endif %}
-									<input type="file" name="courseimage" onchange="window.setTimeout(function() { document.getElementById('imageform').submit(); }, 200);">
+									<input type="file" name="courseimage" accept="image/*" onchange="window.setTimeout(function() { document.getElementById('imageform').submit(); }, 200);">
+								</div>
+								<!--<div class="row">
+									<div class="col-md-4">
+										<fieldset>
+											<legend>Avability in next 2 months</legend>
+											<div class="field">
+												<label>From: </label>
+												<input type="text" class="datepicker">
+											</div>
+											<div class="field">
+												<label>To: </label>
+												<input type="text" class="datepicker">
+											</div>
+										</fieldset>								
+									</div>
+								</div>-->
+								<input id="cdraft" type="hidden" name="cdraft" value="True">
+								<div class="field">
+									<label>Course Status: </label>
+									<div class="field">
+										<div class="ui toggle checkbox">
+											<input type="checkbox" name="gift" tabindex="0" class="hidden" {% if not course.course_draft %}checked="checked" {% endif %}>
+											<label>Toggle the checkbox to (un)publish.</label>
+										</div>
+									</div>
 								</div>
 								<div class="field">
-									<button class="ui button" type="submit">Submit</button>
+									<button class="ui button" type="submit">Save</button>
 								</div>
 						</form>
 					</div>
@@ -110,11 +139,18 @@
 			  .dropdown()
 			;
 			$('.ui.checkbox')
-			  .checkbox()
+			  .checkbox({
+			  	onChecked: function(){
+			  		$('#cdraft').attr('value','False');
+			  	},
+			  	onUnchecked: function(){
+			  		$('#cdraft').attr('value','True');
+			  	}
+			  })
 			;
-			$('.ui.radio.checkbox')
-			  .checkbox()
-			;
+			 $( function() {
+			    $( ".datepicker" ).datepicker();
+			  } );
 		</script>
 	</body>
 </html>

@@ -75,7 +75,7 @@
 								<div class="ui label">
 									Course name: 
 								</div>
-								<input type="text" name="coursename" placeholder="mysite.com">
+								<input type="text" name="coursename" placeholder="Enter course name...">
 							</div>
 						</div>
 						<div class="col-md-2">
@@ -100,6 +100,8 @@
 										- {{course.course_name}} 
 										{% if course.course_draft %}
 											<a class="ui teal tag label">Draft</a>
+										{% else %}
+											<a class="ui green tag label">Published</a>
 										{% endif %}
 									</div>
 								</div>
