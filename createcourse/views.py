@@ -40,7 +40,7 @@ class CourseDetails(View):
 		course.course_expect_desc = request.POST.get('cexpectdesc','')
 		course.course_req_desc = request.POST.get('creqdesc','')
 		course.course_result_desc = request.POST.get('cresultdesc','')
-		course.course_draft = flag[request.POST.get('cdraft', 'True')]
+		#course.course_draft = flag[request.POST.get('cdraft', 'True')]
 		course.save()
 		images = Images.objects.filter(parent_course=course_id)
 		return render(request, self.template_name, context={'course':course,'images':images} )
