@@ -24,7 +24,7 @@ class Index(View):
 		courses = Course.objects.filter(course_author=request.user.username)
 		return render(request, self.template_name, context={'message':'Course exists ! Please pick another name.','courses':courses})
 
-flag = {'Ture': True, 'False': False}
+flag = {'off': True, 'on': False}
 class CourseDetails(View):
 	template_name = "createcourse/coursedetails.html"
 	def get(self, request, course_id):
@@ -40,7 +40,7 @@ class CourseDetails(View):
 		course.course_expect_desc = request.POST.get('cexpectdesc','')
 		course.course_req_desc = request.POST.get('creqdesc','')
 		course.course_result_desc = request.POST.get('cresultdesc','')
-		#course.course_draft = flag[request.POST.get('cdraft', 'True')]
+		course.course_draft = flag[request.POST.get('isdraft', 'off')]
 		course.save()
 		images = Images.objects.filter(parent_course=course_id)
 		return render(request, self.template_name, context={'course':course,'images':images} )
