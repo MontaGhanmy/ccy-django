@@ -43,6 +43,22 @@ ul {
 .ui.fluid.input {
 	margin-bottom: 10px !important;
 }
+.rowdetails {
+	margin: 20px 0px;
+}
+.rowdetails .col-md-4 {
+	padding-left: 0px;
+	min-height: 392px;
+}
+fieldset {
+	min-height: 392px;
+}
+.rowdetails .col-md-4 legend {
+	color: rgba(0,0,0,.87);
+    font-size: .92857143em;
+    font-weight: 700;
+    text-transform: none;
+}
 /** Footer **/
 .footer {
 	text-align: center;

@@ -40,6 +40,29 @@ class CourseDetails(View):
 		course.course_expect_desc = request.POST.get('cexpectdesc','')
 		course.course_req_desc = request.POST.get('creqdesc','')
 		course.course_result_desc = request.POST.get('cresultdesc','')
+		course.avability_start_date = request.POST.get('avabilitysd','')
+		course.avability_end_date = request.POST.get('avabilityed','')
+		course.avability_start_time = request.POST.get('ast','')
+		course.avability_start_time_period = request.POST.get('astp','')
+		course.avability_end_time = request.POST.get('aet','')
+		course.avability_end_time_period = request.POST.get('aetp','')
+		# webinar mode details
+		course.webinar_price = request.POST.get('wprice','')
+		course.webinar_duration = request.POST.get('wduration','')
+		course.webinar_is_free = request.POST.get('wisfree','off')
+		course.webinar_price_per_access = request.POST.get('wppa','')
+		course.webinar_max_num = request.POST.get('wmaxnum','')
+		course.webinar_subsequent_ed = request.POST.get('subsquent','')
+		course.webinar_category = request.POST.get('wcategory','')
+
+		# video mode details
+		course.video_price = request.POST.get('vprice','')
+		course.video_duration = request.POST.get('vduration','')
+		course.video_is_free = request.POST.get('visfree','off')
+		course.video_subsequent_ed = request.POST.get('vsubsquent','')
+		course.video_category = request.POST.get('vcategory','')
+
+
 		course.course_draft = flag[request.POST.get('isdraft', 'off')]
 		course.save()
 		images = Images.objects.filter(parent_course=course_id)
@@ -50,5 +73,8 @@ def deletCourse(request, course_id):
 		course = Course.objects.get(id=course_id)
 	except ObjectDoesNotExist:
 		return redirect('createcourse:index')
+
+	relatedimgs = Images.objects.filter(parent_course=course_id)
+	relatedimgs.delete()
 	course.delete()
 	return redirect('createcourse:index')
