@@ -40,7 +40,7 @@ class CourseDetails(View):
 			newvideo = Videos(parent_course=course_id, video=request.FILES.get('coursevideo', False))
 			newvideo.save()
 		course = Course.objects.get(id=course_id)
-		course.course_expect_desc = request.POST.get('cname','')
+		course.course_name = request.POST.get('cname','')
 		course.course_expect_desc = request.POST.get('cexpectdesc','')
 		course.course_req_desc = request.POST.get('creqdesc','')
 		course.course_result_desc = request.POST.get('cresultdesc','')
