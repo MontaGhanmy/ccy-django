@@ -13,6 +13,7 @@
 		<script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
 		<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+		<script src="http://multidatespickr.sourceforge.net/jquery-ui.multidatespicker.js"></script>
 	</head>
 	<body>
 		<div class="header container-fluid">
@@ -95,17 +96,30 @@
 									{% endif %}
 									<input type="file" name="courseimage" accept="image/*" onchange="window.setTimeout(function() { document.getElementById('imageform').submit(); }, 200);">
 								</div>
+								<div class="field">
+									<label>Course Videos : </label>
+									{% if videos %}
+										{% for video in videos %}
+											<video width="320" height="240" controls>
+											  <source src="{{ video.video.url }}" >
+											Your browser does not support the video tag.
+											</video>
+										{% endfor %}
+									</div>
+									{% endif %}
+									<input type="file" name="coursevideo" accept="video/*" onchange="window.setTimeout(function() { document.getElementById('imageform').submit(); }, 200);">
+								</div>
 								<div class="row rowdetails">
 									<div class="col-md-4">
 										<fieldset>
 											<legend>Avability in next 2 months</legend>
 											<div class="two fields">
 												<div class="field">
-													<label>From: </label>
+													<label>Month 1: </label>
 													<input type="text" name="avabilitysd" class="datepicker" value="{% if course.avability_start_date %}{{ course.avability_start_date }}{% endif %}">
 												</div>
 												<div class="field">
-													<label>To: </label>
+													<label>Month 2: </label>
 													<input type="text" name="avabilityed" class="datepicker" value="{% if course.avability_end_date %}{{ course.avability_end_date }}{% endif %}">
 												</div>
 											</div>
@@ -165,7 +179,7 @@
 												</div>
 											</div>
 											<div class="inline fields">
-												<label class="sixteen wide field">Price per access ($):</label>
+												<label class="sixteen wide field">Post-price per video access ($):</label>
 												<input type="number" name="wppa" min="10" max="75" value="{% if course.webinar_price_per_access %}{{ course.webinar_price_per_access }}{% endif %}">
 											</div>
 											<div class="inline fields">
@@ -327,6 +341,9 @@
 			 $( function() {
 			    $( ".datepicker" ).datepicker();
 			  } );
+			$(document).ready(function(){
+				$(".datepicker").multiDatesPicker();
+			});
 		</script>
 	</body>
-</html>
+</ht

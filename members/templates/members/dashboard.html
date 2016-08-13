@@ -121,15 +121,18 @@
 			<div class="tab-content">
 				<div id="crashcourses" class="tab-pane fade in active">
 					<div class="container-fluid">
+					<!-- Begin Course -->
+					{% if courses %}
+					{% for course in courses %}
 						<div class="ui row course">
-							<div class="ui top right attached label">Programming</div>
+							<div class="ui top right attached label">{{ course.webinar_category }}</div>
 							<div class="ui items col-md-10">
 								<div class="item">
 									<div class="image">
 										<img src="http://placehold.it/220x220">
 									</div>
 									<div class="content">
-										<a class="header">Create websites with Python - Part 1 ( Teacher role )</a>
+										<a class="header">{{ course.course_name }}</a>
 										<div class="meta">
 											<span>5 users enrolled.</span>
 										</div>
@@ -143,7 +146,7 @@
 														<img src="img/stevie.jpg">
 													</a>
 													<div class="content">
-														<a class="author">Stevie Feliciano</a>
+														<a class="author">{{ course.course_author }}</a>
 														<div class="metadata">
 															<div class="date">2 days ago</div>
 															<div class="rating">
@@ -174,55 +177,17 @@
 								</div>
 							</div>
 						</div>
-						<div class="ui row course">
-							<div class="ui top right attached label">Daily life</div>
-							<div class="ui items col-md-10">
-								<div class="item">
-									<div class="image">
-										<img src="http://placehold.it/220x220">
-									</div>
-									<div class="content">
-										<a class="header">How to maintain your aquarium with salt water ( Student role )</a>
-										<div class="meta">
-											<span>5 users enrolled.</span>
-										</div>
-										<div class="description">
-											<div class="ui large star rating" data-rating="5"></div>
-										</div>
-										<div class="extra">
-											<div class="ui comments">
-												<div class="comment">
-													<a class="avatar">
-														<img src="img/stevie.jpg">
-													</a>
-													<div class="content">
-														<a class="author">Stevie Feliciano</a>
-														<div class="metadata">
-															<div class="date">2 days ago</div>
-															<div class="rating">
-																<i class="star icon"></i>
-																5 Faves
-															</div>
-														</div>
-														<div class="text">
-															I think that John Smith is awsome, I learned alot from him.
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="item">
-									<div class="ui horizontal labeled icon buttons">
-										<button class="ui button">
-											<i class="comments icon"></i>
-											Discussion
-										</button>
-									</div>
-								</div>
+						{% endfor %}
+						{% else %}
+						<div class="ui negative message">
+							<i class="close icon"></i>
+							<div class="header">
+								We're sorry we can't find any course at the momement
 							</div>
-						</div>
+							<p>It seems like our courses data base is empty. Become our first author and create a new course now !
+							</p></div>
+						{% endif %}
+						<!-- end course -->
 					</div>
 				</div>
 				<div id="profile" class="tab-pane fade">

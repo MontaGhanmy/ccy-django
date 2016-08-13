@@ -1,4 +1,4 @@
-from .models import Course, Images
+from .models import Course, Images, Videos
 from django.views.generic import TemplateView
 from django.views.generic import  View
 from django.shortcuts import render, redirect, get_object_or_404
@@ -30,11 +30,15 @@ class CourseDetails(View):
 	def get(self, request, course_id):
 		course = Course.objects.get(id=course_id)
 		images = Images.objects.filter(parent_course=course_id)
-		return render(request, self.template_name, context={'course':course,'images':images} )
+		videos = Videos.objects.filter(parent_course=course_id)
+		return render(request, self.template_name, context={'course':course,'images':images, 'videos':videos} )
 	def post(self, request, course_id):
 		if request.FILES.get('courseimage', False):
 			newimage = Images(parent_course=course_id, image=request.FILES.get('courseimage', False))
 			newimage.save()
+		if request.FILES.get('coursevideo', False):
+			newvideo = Videos(parent_course=course_id, video=request.FILES.get('coursevideo', False))
+			newvideo.save()
 		course = Course.objects.get(id=course_id)
 		course.course_expect_desc = request.POST.get('cname','')
 		course.course_expect_desc = request.POST.get('cexpectdesc','')
@@ -66,7 +70,8 @@ class CourseDetails(View):
 		course.course_draft = flag[request.POST.get('isdraft', 'off')]
 		course.save()
 		images = Images.objects.filter(parent_course=course_id)
-		return render(request, self.template_name, context={'course':course,'images':images} )
+		videos = Videos.objects.filter(parent_course=course_id)
+		return render(request, self.template_name, context={'course':course,'images':images, 'videos':videos} )
 
 def deletCourse(request, course_id):
 	try: 
@@ -75,6 +80,8 @@ def deletCourse(request, course_id):
 		return redirect('createcourse:index')
 
 	relatedimgs = Images.objects.filter(parent_course=course_id)
+	relatedvids = Videos.objects.filter(parent_course=course_id)
 	relatedimgs.delete()
+	relatedvids.delete()
 	course.delete()
 	return redirect('createcourse:index')

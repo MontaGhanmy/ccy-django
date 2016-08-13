@@ -8,8 +8,8 @@ class Course(models.Model):
 	course_req_desc = models.CharField(max_length=500, null=True, blank=True)
 	course_result_desc = models.CharField(max_length=500, null=True, blank=True)
 	# Avability in next 2 months
-	avability_start_date = models.CharField(max_length=50, null=True, blank=True)
-	avability_end_date = models.CharField(max_length=50, null=True, blank=True)
+	avability_start_date = models.CharField(max_length=500, null=True, blank=True)
+	avability_end_date = models.CharField(max_length=500, null=True, blank=True)
 	avability_start_time = models.CharField(max_length=50, null=True, blank=True)
 	avability_start_time_period = models.CharField(max_length=5, null=True, blank=True)
 	avability_end_time = models.CharField(max_length=50, null=True, blank=True)
@@ -34,5 +34,8 @@ class Course(models.Model):
 class Images(models.Model):
 	parent_course  = models.CharField(max_length=50)
 	image = models.FileField()
-	
+
+class Videos(models.Model):
+	parent_course  = models.CharField(max_length=50)
+	video = models.FileField()
 

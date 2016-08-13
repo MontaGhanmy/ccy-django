@@ -1,5 +1,6 @@
 from django.views.generic import TemplateView
 from django.contrib.auth.models import User
+from createcourse.models import Course
 from .models import UserProfile
 from django.contrib.auth import  authenticate, login, logout
 from django.views.generic import  View
@@ -68,7 +69,8 @@ class UserFormView(View):
 class UserDashboard(TemplateView):
 	template_name = "members/dashboard.html"
 	def get(self, request):
-		return render(request, self.template_name, context={'usertags': request.user.userprofile.user_tags.split(',')})
+		courses = Course.objects.all()
+		return render(request, self.template_name, context={'usertags': request.user.userprofile.user_tags.split(','), 'courses':courses})
 	def post(self, request):
 		if request.POST['username']:
 			request.user.username = request.POST['username']
