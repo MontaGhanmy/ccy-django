@@ -53,11 +53,18 @@ ul {
 fieldset {
 	min-height: 392px;
 }
+fieldset[disabled="disabled"] {
+	background-color: #c7c2c2;
+}
 .rowdetails .col-md-4 legend {
 	color: rgba(0,0,0,.87);
     font-size: .92857143em;
     font-weight: 700;
     text-transform: none;
+}
+.inline-fields .field {
+	float: left;
+	margin-left: 10px;
 }
 /** Footer **/
 .footer {
