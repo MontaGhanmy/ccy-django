@@ -1,5 +1,14 @@
 from django.db import models
 
+
+class Images(models.Model):
+	parent_course  = models.CharField(max_length=50)
+	image = models.FileField()
+
+class Videos(models.Model):
+	parent_course  = models.CharField(max_length=50)
+	video = models.FileField()
+
 class Course(models.Model):
 	course_author = models.CharField(max_length=50)
 	course_name = models.CharField(max_length=80)
@@ -7,6 +16,8 @@ class Course(models.Model):
 	course_expect_desc = models.CharField(max_length=500, null=True, blank=True)
 	course_req_desc = models.CharField(max_length=500, null=True, blank=True)
 	course_result_desc = models.CharField(max_length=500, null=True, blank=True)
+	videos = models.ManyToManyField(Videos)
+	
 	# Avability in next 2 months
 	avability_start_date = models.CharField(max_length=500, null=True, blank=True)
 	avability_end_date = models.CharField(max_length=500, null=True, blank=True)
@@ -30,12 +41,3 @@ class Course(models.Model):
 	video_is_free = models.CharField(max_length=5, null=True, blank=True)
 	video_subsequent_ed = models.CharField(max_length=5, null=True, blank=True)
 	video_category = models.CharField(max_length=50, null=True, blank=True)
-
-class Images(models.Model):
-	parent_course  = models.CharField(max_length=50)
-	image = models.FileField()
-
-class Videos(models.Model):
-	parent_course  = models.CharField(max_length=50)
-	video = models.FileField()
-

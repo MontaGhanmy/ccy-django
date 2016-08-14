@@ -1,6 +1,6 @@
 from django.views.generic import TemplateView
 from django.contrib.auth.models import User
-from createcourse.models import Course
+from createcourse.models import Course, Images, Videos
 from .models import UserProfile
 from django.contrib.auth import  authenticate, login, logout
 from django.views.generic import  View
@@ -38,11 +38,8 @@ class UserFormView(View):
 				username = form.cleaned_data['username']
 				password = form.cleaned_data['password']
 				email = form.cleaned_data['email']
-				usertype = form.cleaned_data['usertype']
 				user.set_password(password)
 				user.save()
-				user.userprofile.user_type = usertype 
-				user.userprofile.save()
 
 				user = authenticate(username=username, password=password)
 				if user is not None:
@@ -70,7 +67,7 @@ class UserDashboard(TemplateView):
 	template_name = "members/dashboard.html"
 	def get(self, request):
 		courses = Course.objects.all()
-		return render(request, self.template_name, context={'usertags': request.user.userprofile.user_tags.split(','), 'courses':courses})
+		return render(request, self.template_name, context={'usertags': request.user.userprofile.user_tags.split(','), 'courses':courses,})
 	def post(self, request):
 		if request.POST['username']:
 			request.user.username = request.POST['username']

@@ -157,19 +157,26 @@
 													</div>
 												</div>
 											</div>
+											<div class="field">
+												<select class="ui dropdown" id="avmodeselect">
+													<option value="">Avalability mode</option>
+													<option value="webinarmode">Webinar mode</option>
+													<option value="videomode">Video mode</option>
+												</select>	
+											</div>
 										</fieldset>								
 									</div>
 									<div class="col-md-4">
-										<fieldset>
+										<fieldset class="fieldmode webinarmode">
 											<legend>Details  (Webinar mode)</legend>
 											<div class="two fields">
 												<div class="field">
-													<label>Price ($):</label>
-													<input type="number" name="wprice" min="10" max="75" value="{% if course.webinar_price %}{{ course.webinar_price }}{% endif %}">
+													<label>Total price (including all students) ($):</label>
+													<input type="number" name="wprice" min="10" value="{% if course.webinar_price %}{{ course.webinar_price }}{% endif %}">
 												</div>
 												<div class="field">
 													<label>Duration (hours):</label>
-													<input type="number" name="wduration" min="1" max="5" value="{% if course.webinar_duration %}{{ course.webinar_duration }}{% endif %}">
+													<input type="number" name="wduration" min="1" value="{% if course.webinar_duration %}{{ course.webinar_duration }}{% endif %}">
 												</div>
 											</div>
 											<div class="field">
@@ -180,11 +187,11 @@
 											</div>
 											<div class="inline fields">
 												<label class="sixteen wide field">Post-price per video access ($):</label>
-												<input type="number" name="wppa" min="10" max="75" value="{% if course.webinar_price_per_access %}{{ course.webinar_price_per_access }}{% endif %}">
+												<input type="number" name="wppa" min="10" value="{% if course.webinar_price_per_access %}{{ course.webinar_price_per_access }}{% endif %}">
 											</div>
 											<div class="inline fields">
 												<label class="sixteen wide field">Max number of students:</label>
-												<input type="number" name="wmaxnum" min="10" max="75" value="{% if course.webinar_max_num %}{{ course.webinar_max_num }}{% endif %}">
+												<input type="number" name="wmaxnum" min="10" value="{% if course.webinar_max_num %}{{ course.webinar_max_num }}{% endif %}">
 											</div>
 											<div class="field">
 												<label>It will have subsequent editions?</label>
@@ -228,16 +235,16 @@
 										</fieldset>								
 									</div>
 									<div class="col-md-4">
-										<fieldset>
+										<fieldset class="fieldmode videomode">
 											<legend>Details  (video mode)</legend>
 											<div class="two fields">
 												<div class="field">
-													<label>Price ($):</label>
-													<input type="number" name="vprice" min="10" max="75" value="{% if course.video_price %}{{ course.video_price }}{% endif %}">
+													<label>Total price (including all students) ($):</label>
+													<input type="number" name="vprice" min="10" value="{% if course.video_price %}{{ course.video_price }}{% endif %}">
 												</div>
 												<div class="field">
 													<label>Duration (hours):</label>
-													<input type="number" name="vduration" min="1" max="5" value="{% if course.video_duration %}{{ course.video_duration }}{% endif %}">
+													<input type="number" name="vduration" min="1" value="{% if course.video_duration %}{{ course.video_duration }}{% endif %}">
 												</div>
 											</div>
 											<div class="field">
@@ -342,7 +349,21 @@
 			    $( ".datepicker" ).datepicker();
 			  } );
 			$(document).ready(function(){
+				$('.fieldmode').attr('disabled','');
+				$(".fieldmode").children().addClass("disabled");
 				$(".datepicker").multiDatesPicker();
+				$("#avmodeselect").change(function(){
+					$('.fieldmode').attr('disabled','');
+					$(".fieldmode").children().addClass("disabled");
+					if ($(this).val() == "videomode") {
+						$('.videomode').removeAttr('disabled');
+						$(".videomode").children().removeClass("disabled");
+					}
+					if ($(this).val() == "webinarmode") {
+						$('.webinarmode').removeAttr('disabled');
+						$(".webinarmode").children().removeClass("disabled");
+					}
+				});
 			});
 		</script>
 	</body>

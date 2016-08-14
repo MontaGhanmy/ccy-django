@@ -4,7 +4,6 @@ from django.db.models.signals import post_save
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
-    user_type = models.TextField()
     user_successrate = models.TextField()
     user_desc = models.TextField(default="my description")
     user_tags = models.TextField(default="ccy, ")
