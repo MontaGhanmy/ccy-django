@@ -66,6 +66,10 @@ fieldset[disabled="disabled"] {
 	float: left;
 	margin-left: 10px;
 }
+.fieldleft {
+	float: left !important;
+	margin-left: 10px !important;
+}
 /** Footer **/
 .footer {
 	text-align: center;
