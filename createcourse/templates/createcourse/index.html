@@ -64,8 +64,8 @@
 			{% endif %}
 				<div class="row">
 					<div class="col-md-12">
-						<p>Please fill in the basic information about your course. <button class="ui green circular icon button">
-  <i class="help icon"></i>
+						<p>Please, inform the name of your new crash course: <button class="ui green circular icon button">
+  <i class="help icon" data-title="I'm confused" data-content="You'll be able to add more details once you add the course name."></i>
 </button></p>
 					<div class="row">
 						<div class="col-md-10">
@@ -94,7 +94,18 @@
 								<div class="item">
 									<div class="right floated content">
 										<div class="ui green button" onclick="window.location='{% url 'createcourse:index' %}{{ course.id }}';">Edit</div>
-										<div class="ui red button" onclick="window.location='{% url 'createcourse:index' %}delete/{{ course.id }}';">Delete</div>
+										<div class="ui red button delete" targetco=".co{{ course.id }}">Delete
+											<div class="ui modal co{{ course.id }}">
+												<i class="close icon"></i>
+												<div class="header">
+													Delete this course
+												</div>
+												<div class="actions">
+													<div class="ui button close">Cancel</div>
+													<div class="ui button" onclick="window.location='{% url 'createcourse:index' %}delete/{{ course.id }}';">OK</div>
+												</div>
+											</div>
+										</div>
 									</div>
 									<div class="content">
 										- {{course.course_name}} 
@@ -134,6 +145,18 @@
 			$('.ui.radio.checkbox')
 			  .checkbox()
 			;
+			$('i.help')
+			  .popup()
+			;
+			$('.ui.modal')
+				  .modal('attach events', '.close.button', 'hide')
+			;
+			$( "div.delete" ).click(function() {
+				var target = $(this).attr('targetco');
+				$(target)
+					.modal('show')
+				;
+			});
 		</script>
 	</body>
 </html>

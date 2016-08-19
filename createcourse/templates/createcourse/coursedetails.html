@@ -66,27 +66,32 @@
 							<div class="ui form">
 								<div class="ui fluid labeled input">
 									<div class="ui label">
-										Course name: 
+										Course name:
 									</div>
 									<input type="text" name="cname" value="{{ course.course_name }}">
 								</div>
 								<div class="field">
-									<label>What to expect: 
-									</button></label>
+									<label>What to expect:  <p class="ui green circular icon button">
+  <i class="help icon" data-title="I'm confused" data-content="This is a help message for the user."></i></p>
+									</label>
 									<textarea name="cexpectdesc" rows="2">{% if course.course_expect_desc %}{{ course.course_expect_desc }}{% endif %}</textarea>
 								</div>
 								<div class="field">
-									<label>Requirements (optional): 
-									</button></label>
+									<label>Requirements (optional): <p class="ui green circular icon button">
+  <i class="help icon" data-title="I'm confused" data-content="This is a help message for the user."></i></p>
+									</label>
 									<textarea name="creqdesc" rows="2">{% if course.course_req_desc %}{{ course.course_req_desc }}{% endif %}</textarea>
 								</div>
 								<div class="field">
-									<label>Final Result (optional): 
-									</button></label>
+									<label>Final Result (optional): <p class="ui green circular icon button">
+  <i class="help icon" data-title="I'm confused" data-content="This is a help message for the user."></i></p>
+									</label>
 									<textarea name="cresultdesc" rows="2">{% if course.course_result_desc  %}{{ course.course_result_desc }}{% endif %}</textarea>
 								</div>
 								<div class="field">
-									<label>Course Images : </label>
+									<label>Course Images : <p class="ui green circular icon button">
+  <i class="help icon" data-title="I'm confused" data-content="This is a help message for the user."></i></p>
+  </label>
 									{% if images %}
 									<div class="ui tiny images">
 										{% for image in images %}
@@ -97,7 +102,9 @@
 									<input type="file" name="courseimage" accept="image/*" onchange="window.setTimeout(function() { document.getElementById('imageform').submit(); }, 200);">
 								</div>
 								<div class="field">
-									<label>Course Videos : </label>
+									<label>Course Videos : <p class="ui green circular icon button">
+  <i class="help icon" data-title="I'm confused" data-content="This is a help message for the user."></i></p>
+									</label>
 									{% if videos %}
 										{% for video in videos %}
 											<video width="320" height="240" controls>
@@ -110,18 +117,17 @@
 									<input type="file" name="coursevideo" accept="video/*" onchange="window.setTimeout(function() { document.getElementById('imageform').submit(); }, 200);">
 								</div>
 								<div class="row rowdetails">
-									<div class="col-md-4">
-										<fieldset>
-											<legend>Avability in next 2 months</legend>
-											<div class="two fields">
-												<div class="field">
-													<label>Month 1: </label>
-													<input type="text" name="avabilitysd" class="datepicker" value="{% if course.avability_start_date %}{{ course.avability_start_date }}{% endif %}">
-												</div>
-												<div class="field">
-													<label>Month 2: </label>
-													<input type="text" name="avabilityed" class="datepicker" value="{% if course.avability_end_date %}{{ course.avability_end_date }}{% endif %}">
-												</div>
+									<div class="col-md-6">
+										<fieldset id="datesav">
+											<legend>Avability in next 2 months <p class="ui green circular icon button">
+  <i class="help icon" data-title="I'm confused" data-content="This is a help message for the user."></i></p>
+  											</legend>
+
+											<input type="hidden" name="avabilitysd" class="datepicker" value="{% if course.avability_start_date %}{{ course.avability_start_date }}{% endif %}">
+											<input type="hidden" name="avabilityed" class="datepicker" value="{% if course.avability_end_date %}{{ course.avability_end_date }}{% endif %}">
+											<div class="row">
+												<div class="col-md-6 datepicker"></div>
+												<div class="col-md-6 datepicker"></div>
 											</div>
 											<div class="field">
 												<label>Time Available:</label>
@@ -157,143 +163,151 @@
 													</div>
 												</div>
 											</div>
+										</fieldset>								
+									</div>
+									<div class="col-md-6">
+									<div class="row">
+										<div class="col-md-12">
 											<div class="field">
 												<select class="ui dropdown" id="avmodeselect">
 													<option value="">Avalability mode</option>
 													<option value="webinarmode">Webinar mode</option>
 													<option value="videomode">Video mode</option>
 												</select>	
-											</div>
-										</fieldset>								
-									</div>
-									<div class="col-md-4">
-										<fieldset class="fieldmode webinarmode">
-											<legend>Details  (Webinar mode)</legend>
-											<div class="two fields">
-												<div class="field">
-													<label>Total price (including all students) ($):</label>
-													<input type="number" name="wprice" min="10" value="{% if course.webinar_price %}{{ course.webinar_price }}{% endif %}">
-												</div>
-												<div class="field">
-													<label>Duration (hours):</label>
-													<input type="number" name="wduration" min="1" value="{% if course.webinar_duration %}{{ course.webinar_duration }}{% endif %}">
-												</div>
-											</div>
-											<div class="field">
-												<div class="ui checkbox">
-													<input type="checkbox" name="wisfree" tabindex="0" class="hidden" {% if course.webinar_is_free == "on" %} checked="checked"{% endif %}>
-													<label>This is a free training session</label>
-												</div>
-											</div>
-											<div class="inline fields">
-												<label class="sixteen wide field">Max number of students:</label>
-												<input type="number" name="wmaxnum" min="10" value="{% if course.webinar_max_num %}{{ course.webinar_max_num }}{% endif %}">
-											</div>
-											<div class="inline fields">
-												<label class="sixteen wide field">Post-price per video access ($):</label>
-												<input type="number" name="wppa" min="10" value="{% if course.webinar_price_per_access %}{{ course.webinar_price_per_access }}{% endif %}">
-											</div>
-											<div class="field">
-												<label>It will have subsequent editions?</label>
-											</div>
-											<div class="inline-fields">
-												<div class="field fieldleft">
-													<div class="ui radio checkbox">
-														<input type="radio" name="subsquent" tabindex="0" class="hidden" value="Yes" {% if course.webinar_subsequent_ed == "Yes" %}checked="checked"{% endif %}>
-														<label>Yes</label>
-													</div>
-												</div>
-												<div class="field fieldleft">
-													<div class="ui radio checkbox">
-														<input type="radio" name="subsquent" tabindex="0" class="hidden" value="No" {% if course.webinar_subsequent_ed == "No" %}checked="checked"{% endif %}>
-														<label>No</label>
-													</div>
-												</div>
-												<div class="field fieldleft">
-													<div class="ui radio checkbox">
-														<input type="radio" name="subsquent" tabindex="0" class="hidden" value="Maybe" {% if course.webinar_subsequent_ed == "Maybe" %}checked="checked"{% endif %}>
-														<label>Maybe</label>
-													</div>
-												</div>
-											</div>
-											<div class="field">
-												<select class="ui dropdown" name="wcategory">
-													{% if course.webinar_category %}
-														<option value="{{ course.webinar_category }}">{{ course.webinar_category }}</option>
-													{% else %}
-														<option value="">Category</option>
-													{% endif %}
-													
-													<option value="Programming">Programming</option>
-													<option value="Entertainement">Entertainement</option>
-													<option value="Life & DIY">Life & DIY</option>
-													<option value="Science">Science</option>
-													<option value="Mathematics">Mathematics</option>
-													<option value="Sport">Sport</option>
-												</select>
-											</div>
-										</fieldset>								
-									</div>
-									<div class="col-md-4">
-										<fieldset class="fieldmode videomode">
-											<legend>Details  (video mode)</legend>
-											<div class="two fields">
-												<div class="field">
-													<label>Total price (including all students) ($):</label>
-													<input type="number" name="vprice" min="10" value="{% if course.video_price %}{{ course.video_price }}{% endif %}">
-												</div>
-												<div class="field">
-													<label>Duration (hours):</label>
-													<input type="number" name="vduration" min="1" value="{% if course.video_duration %}{{ course.video_duration }}{% endif %}">
-												</div>
-											</div>
-											<div class="field">
-												<div class="ui checkbox">
-													<input type="checkbox" name="visfree" tabindex="0" class="hidden" {% if course.video_is_free == "on" %} checked="checked"{% endif %}>
-													<label>This is a free training session</label>
-												</div>
-											</div>
-
-											<div class="field">
-												<label>It will have subsequent editions?</label>
-											</div>
-											<div class="inline-fields">
-												<div class="field fieldleft">
-													<div class="ui radio checkbox">
-														<input type="radio" name="vsubsquent" tabindex="0" class="hidden" value="Yes" {% if course.video_subsequent_ed == "Yes" %}checked="checked"{% endif %}>
-														<label>Yes</label>
-													</div>
-												</div>
-												<div class="field fieldleft">
-													<div class="ui radio checkbox">
-														<input type="radio" name="vsubsquent" tabindex="0" class="hidden" value="No" {% if course.video_subsequent_ed == "No" %}checked="checked"{% endif %}>
-														<label>No</label>
-													</div>
-												</div>
-												<div class="field fieldleft">
-													<div class="ui radio checkbox">
-														<input type="radio" name="vsubsquent" tabindex="0" class="hidden" value="Maybe" {% if course.video_subsequent_ed == "Maybe" %}checked="checked"{% endif %}>
-														<label>Maybe</label>
-													</div>
-												</div>
-											</div>
-											<div class="field">
-												<select class="ui dropdown" name="vcategory">
-													{% if course.video_category %}
-														<option value="{{ course.video_category }}">{{ course.video_category }}</option>
-													{% else %}
-														<option value="">Category</option>
-													{% endif %}
-													
-													<option value="Programming">Programming</option>
-													<option value="Entertainement">Entertainement</option>
-													<option value="Life & DIY">Life & DIY</option>
-													<option value="Science">Science</option>
-													<option value="Mathematics">Mathematics</option>
-													<option value="Sport">Sport</option>
-												</select>
 											</div>		
-										</fieldset>								
+										</div>
+									</div>
+										<div class="row">
+										<div class="col-md-6">
+											<fieldset class="fieldmode webinarmode">
+												<legend>Details  (Webinar mode)</legend>
+												<div class="two fields">
+													<div class="field">
+														<label>Total price (including all students) ($):</label>
+														<input type="number" name="wprice" min="10" value="{% if course.webinar_price %}{{ course.webinar_price }}{% endif %}">
+													</div>
+													<div class="field">
+														<label>Duration (hours):</label>
+														<input type="number" name="wduration" min="1" value="{% if course.webinar_duration %}{{ course.webinar_duration }}{% endif %}">
+													</div>
+												</div>
+												<div class="field">
+													<div class="ui checkbox">
+														<input type="checkbox" name="wisfree" tabindex="0" class="hidden" {% if course.webinar_is_free == "on" %} checked="checked"{% endif %}>
+														<label>This is a free training session</label>
+													</div>
+												</div>
+												<div class="inline fields">
+													<label class="sixteen wide field">Max number of students:</label>
+													<input type="number" name="wmaxnum" min="10" value="{% if course.webinar_max_num %}{{ course.webinar_max_num }}{% endif %}">
+												</div>
+												<div class="inline fields">
+													<label class="sixteen wide field">Post-price per video access ($):</label>
+													<input type="number" name="wppa" min="10" value="{% if course.webinar_price_per_access %}{{ course.webinar_price_per_access }}{% endif %}">
+												</div>
+												<div class="field">
+													<label>It will have subsequent editions?</label>
+												</div>
+												<div class="row">
+													<div class="col-md-4">
+														<div class="ui radio checkbox">
+															<input type="radio" name="subsquent" tabindex="0" class="hidden" value="Yes" {% if course.webinar_subsequent_ed == "Yes" %}checked="checked"{% endif %}>
+															<label>Yes</label>
+														</div>
+													</div>
+													<div class="col-md-4">
+														<div class="ui radio checkbox">
+															<input type="radio" name="subsquent" tabindex="0" class="hidden" value="No" {% if course.webinar_subsequent_ed == "No" %}checked="checked"{% endif %}>
+															<label>No</label>
+														</div>
+													</div>
+													<div class="col-md-4">
+														<div class="ui radio checkbox">
+															<input type="radio" name="subsquent" tabindex="0" class="hidden" value="Maybe" {% if course.webinar_subsequent_ed == "Maybe" %}checked="checked"{% endif %}>
+															<label>Maybe</label>
+														</div>
+													</div>
+												</div>
+												<div class="field">
+													<select class="ui dropdown" name="wcategory">
+														{% if course.webinar_category %}
+															<option value="{{ course.webinar_category }}">{{ course.webinar_category }}</option>
+														{% else %}
+															<option value="">Category</option>
+														{% endif %}
+														
+														<option value="Programming">Programming</option>
+														<option value="Entertainement">Entertainement</option>
+														<option value="Life & DIY">Life & DIY</option>
+														<option value="Science">Science</option>
+														<option value="Mathematics">Mathematics</option>
+														<option value="Sport">Sport</option>
+													</select>
+												</div>
+											</fieldset>								
+										</div>
+										<div class="col-md-6">
+											<fieldset class="fieldmode videomode">
+												<legend>Details  (video mode)</legend>
+												<div class="two fields">
+													<div class="field">
+														<label>Total price (including all students) ($):</label>
+														<input type="number" name="vprice" min="10" value="{% if course.video_price %}{{ course.video_price }}{% endif %}">
+													</div>
+													<div class="field">
+														<label>Duration (hours):</label>
+														<input type="number" name="vduration" min="1" value="{% if course.video_duration %}{{ course.video_duration }}{% endif %}">
+													</div>
+												</div>
+												<div class="field">
+													<div class="ui checkbox">
+														<input type="checkbox" name="visfree" tabindex="0" class="hidden" {% if course.video_is_free == "on" %} checked="checked"{% endif %}>
+														<label>This is a free training session</label>
+													</div>
+												</div>
+
+												<div class="field">
+													<label>It will have subsequent editions?</label>
+												</div>
+												<div class="row">
+													<div class="col-md-4">
+														<div class="ui radio checkbox">
+															<input type="radio" name="vsubsquent" tabindex="0" class="hidden" value="Yes" {% if course.video_subsequent_ed == "Yes" %}checked="checked"{% endif %}>
+															<label>Yes</label>
+														</div>
+													</div>
+													<div class="col-md-4">
+														<div class="ui radio checkbox">
+															<input type="radio" name="vsubsquent" tabindex="0" class="hidden" value="No" {% if course.video_subsequent_ed == "No" %}checked="checked"{% endif %}>
+															<label>No</label>
+														</div>
+													</div>
+													<div class="col-md-4">
+														<div class="ui radio checkbox">
+															<input type="radio" name="vsubsquent" tabindex="0" class="hidden" value="Maybe" {% if course.video_subsequent_ed == "Maybe" %}checked="checked"{% endif %}>
+															<label>Maybe</label>
+														</div>
+													</div>
+												</div>
+												<div class="field">
+													<select class="ui dropdown" name="vcategory">
+														{% if course.video_category %}
+															<option value="{{ course.video_category }}">{{ course.video_category }}</option>
+														{% else %}
+															<option value="">Category</option>
+														{% endif %}
+														
+														<option value="Programming">Programming</option>
+														<option value="Entertainement">Entertainement</option>
+														<option value="Life & DIY">Life & DIY</option>
+														<option value="Science">Science</option>
+														<option value="Mathematics">Mathematics</option>
+														<option value="Sport">Sport</option>
+													</select>
+												</div>		
+											</fieldset>								
+										</div>
+										</div>
 									</div>
 								</div>
 								<input id="cdraft" type="hidden" name="cdraft" value="True">
@@ -307,6 +321,7 @@
 									</div>
 								</div>
 								<div class="field">
+									<a class="ui button" href="http://127.0.0.1:8000/createcourse/">Return</a>
 									<button class="ui button" type="submit">Save</button>
 								</div>
 						</form>
@@ -351,6 +366,7 @@
 			$(document).ready(function(){
 				$('.fieldmode').attr('disabled','');
 				$(".fieldmode").children().addClass("disabled");
+				$(".fieldmode").find('input').addClass("disabled");
 				$(".datepicker").multiDatesPicker();
 				$("#avmodeselect").change(function(){
 					$('.fieldmode').attr('disabled','');
@@ -358,13 +374,18 @@
 					if ($(this).val() == "videomode") {
 						$('.videomode').removeAttr('disabled');
 						$(".videomode").children().removeClass("disabled");
+						$(".videomode").find('input').removeClass("disabled");
 					}
 					if ($(this).val() == "webinarmode") {
 						$('.webinarmode').removeAttr('disabled');
 						$(".webinarmode").children().removeClass("disabled");
+						$(".webinarmode").find('input').removeClass("disabled");
 					}
 				});
 			});
+			$('i.help')
+			  .popup()
+			;
 		</script>
 	</body>
 </ht

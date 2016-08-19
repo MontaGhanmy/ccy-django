@@ -7,6 +7,9 @@ body {
 ul {
 	list-style: none;
 }
+i {
+	color: #fff;
+}
 .header {
 	padding: 50px;
 }
@@ -46,15 +49,21 @@ ul {
 .rowdetails {
 	margin: 20px 0px;
 }
-.rowdetails .col-md-4 {
-	padding-left: 0px;
-	min-height: 392px;
+.rowdetails .col-md-6 {
+	padding: 10px;
+}
+fieldset .row, fieldset .col-md-4 {
+	padding: 0px;
+	margin: 0px;
 }
 fieldset {
-	min-height: 392px;
+	min-height: 475px;
 }
 fieldset[disabled="disabled"] {
 	background-color: #c7c2c2;
+}
+#datesav {
+	min-height: 525px;
 }
 .rowdetails .col-md-4 legend {
 	color: rgba(0,0,0,.87);
@@ -70,6 +79,9 @@ fieldset[disabled="disabled"] {
 	float: left !important;
 	margin-left: 10px !important;
 	width: 20% !important;
+}
+.datepicker {
+	font-size: 12px;
 }
 /** Footer **/
 .footer {

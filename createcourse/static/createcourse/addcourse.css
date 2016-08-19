@@ -32,7 +32,7 @@ ul {
 }
 .msg {
 	text-align: center;
-	font-size: 24px;
+	font-size: 18px;
 	font-weight: 700;
 	color: red;
 	padding: 15px;
@@ -51,4 +51,7 @@ ul {
 .footer {
 	text-align: center;
 	padding: 15px;
+}
+.ui.modal {
+	height: 140px !important;
 }
